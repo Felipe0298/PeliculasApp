@@ -29,10 +29,6 @@ export const MoviePoster = ({ movie }: Props) => {
 
 
 const styles = StyleSheet.create({
-    image: {
-        flex: 1,
-        borderRadius: 18,
-    },
     imgContainer: {
         flex: 1,
         shadowColor: "#000",
@@ -44,5 +40,10 @@ const styles = StyleSheet.create({
         shadowRadius: 7,
 
         elevation: 10,
+    },
+    image: {
+        flex: 1,
+        borderRadius: 18,
     }
+    
 });
