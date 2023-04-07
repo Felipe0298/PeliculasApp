@@ -4,14 +4,14 @@ import { useMovies } from '../../hooks/useMovies';
 import { MoviePoster } from '../../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import {  ScrollView } from 'react-native-gesture-handler';
 import { HorizontalSlider } from '../../components/HorizontalSlider';
 
 const { width: windowWidht } = Dimensions.get("window")
 
 export const HomeScreen = () => {
 
-    const { peliculasEnCine, isLoading, peliculasPopulares } = useMovies()
+    const { nowPlaying, isLoading, popular, topRated, upcoming } = useMovies()
     const { top } = useSafeAreaInsets()
 
     if (isLoading) {
@@ -24,11 +24,11 @@ export const HomeScreen = () => {
     return (
         <ScrollView>
             <View style={{ marginTop: top + 20 }}>
-
+                                                    {/*  El simbolo ! es para decirle a typescript que confie en mi */}
                 {/* Carosel Principal */}
                 <View style={{ height: 440 }}>
                     <Carousel
-                        data={peliculasEnCine}
+                        data={nowPlaying!}
                         renderItem={({ item }: any) => <MoviePoster movie={item} />}
                         sliderWidth={windowWidht}
                         itemWidth={300} 
@@ -37,9 +37,9 @@ export const HomeScreen = () => {
 
                 {/* Peliculas populares */}
 
-                    <HorizontalSlider movies={peliculasPopulares} title='Populares' />
-
-
+                    <HorizontalSlider movies={popular} title='Populares' />
+                    <HorizontalSlider movies={topRated} title='Mejores Calificadas' />
+                    <HorizontalSlider movies={upcoming} title='Proximamente' />
             </View>
         </ScrollView>
 
