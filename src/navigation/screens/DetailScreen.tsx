@@ -1,18 +1,72 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import { Movie } from '../../interfaces/movieInterface';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { RootStackParams } from '../Navigation';
+import { Movie } from '../../interfaces/movieInterface';
+import { ScrollView } from 'react-native-gesture-handler';
 
-interface Props extends StackScreenProps <RootStackParams,"DetailScreen">{}
+const screenHeight = Dimensions.get("screen").height
 
-export const DetailScreen = ({route}: Props) => {
+interface Props extends StackScreenProps<RootStackParams, "DetailScreen"> { }
 
-    const movie = route.params as Movie
+export const DetailScreen = ({ route }: Props) => {
+
+    const movie = route.params
+
+    const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
 
     return (
-        <View>
-            <Text>DetailScreen</Text>
-        </View>
+        <ScrollView>
+            <View style={styles.imageContainer}>
+                <Image source={{ uri }}
+                    style={styles.posterImage} />
+            </View>
+
+            <View style={styles.marginContainer}>
+                <Text style={styles.subtitle}>{movie.original_title}</Text>
+                <Text style={styles.title}>{movie.title}</Text>
+            </View>
+
+        </ScrollView>
     );
 }
+
+
+export const styles = StyleSheet.create({
+
+    imageContainer: {
+        width: "100%",
+        height: screenHeight * 0.70,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 7,
+
+        elevation: 5,
+
+        borderBottomEndRadius: 25,
+        borderBottomStartRadius: 25,
+        overflow: "hidden"
+    },
+    posterImage: {
+        flex: 1,
+    },
+    marginContainer:{
+        marginHorizontal:20,
+        marginTop:20,
+    },
+    subtitle:{
+        fontSize:18,
+        color:"black",
+        opacity:0.8
+    },
+    title:{
+        fontSize:20,
+        fontWeight:"bold",
+        color:"black"
+    }
+});
