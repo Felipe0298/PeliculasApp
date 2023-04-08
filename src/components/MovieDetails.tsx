@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { MovieFull } from '../interfaces/movieInterface';
 import { Cast } from '../interfaces/creditsInterface';
 import { styles } from '../navigation/screens/DetailScreen';
+import { CastItem } from './CastItem';
 
 interface Props {
     movieFull: MovieFull;
@@ -16,10 +17,10 @@ export const MovieDetails = ({ movieFull, cast }: Props) => {
             <View style={{ marginHorizontal: 20 }}>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ fontSize: 16, fontWeight: "bold" }}>⭐</Text>
-                    <Text style={{ ...styles.subtitle, fontSize: 16, color: "grey" }}>{movieFull.vote_average.toFixed(2)}</Text>
+                    <Text style={{ ...styles.subtitle, fontSize: 16, color: "grey" }}>{movieFull.vote_average.toFixed(2)} </Text>
 
                     <Text style={{ ...styles.subtitle, fontSize: 16, color: "grey" }}>
-                        -{movieFull.genres.map(gen => gen.name).join(",")}
+                         - {movieFull.genres.map(gen => gen.name).join(",")}
                     </Text>
                 </View>
 
@@ -34,7 +35,7 @@ export const MovieDetails = ({ movieFull, cast }: Props) => {
                 <Text style={{ fontSize: 23, marginTop: 10, fontWeight: "bold", color: "black" }}>
                     Presupuesto
                 </Text>
-                <Text style={{ fontSize: 16, color:"black" }}>
+                <Text style={{ fontSize: 16, color: "black" }}>
 
                     {
                         new Intl.NumberFormat("en-US", { style: 'currency', currency: 'USD' }).format(movieFull.budget)
@@ -42,6 +43,13 @@ export const MovieDetails = ({ movieFull, cast }: Props) => {
                     }
                 </Text>
 
+                {/* Casting */}
+                <View style={{ marginTop: 10, marginBottom:100 }}>
+                    <Text style={{ fontSize: 23, marginTop: 10, fontWeight: "bold", color: "black", marginHorizontal:20 }}>
+                        Actores
+                    </Text>
+                    <CastItem actor={cast[0]} />
+                </View>
             </View>
         </>
     );
