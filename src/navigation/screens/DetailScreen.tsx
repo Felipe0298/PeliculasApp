@@ -26,6 +26,7 @@ export const DetailScreen = ({ route }: Props) => {
             <View style={styles.marginContainer}>
                 <Text style={styles.subtitle}>{movie.original_title}</Text>
                 <Text style={styles.title}>{movie.title}</Text>
+                
             </View>
 
         </ScrollView>
