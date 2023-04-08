@@ -14,14 +14,34 @@ export const MovieDetails = ({ movieFull, cast }: Props) => {
         <>
             {/* Detalles */}
             <View style={{ marginHorizontal: 20 }}>
-                <View style={{flexDirection:"row"}}>
-                    <Text style={{fontSize:16, fontWeight:"bold"}}>⭐</Text>
-                    <Text style={styles.subtitle}>{movieFull.vote_average.toFixed(2)}</Text>
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontSize: 16, fontWeight: "bold" }}>⭐</Text>
+                    <Text style={{ ...styles.subtitle, fontSize: 16, color: "grey" }}>{movieFull.vote_average.toFixed(2)}</Text>
 
-                    <Text style={{...styles.subtitle}}>
-                        -{ movieFull.genres.map(gen => gen.name).join(",")}
+                    <Text style={{ ...styles.subtitle, fontSize: 16, color: "grey" }}>
+                        -{movieFull.genres.map(gen => gen.name).join(",")}
                     </Text>
                 </View>
+
+                {/* Historia */}
+                <Text style={{ fontSize: 23, marginTop: 10, fontWeight: "bold", color: "black" }}>
+                    Historia
+                </Text>
+
+                <Text style={{ color: "black", fontSize: 16 }}>{movieFull.overview}</Text>
+
+                {/* Presupuesto */}
+                <Text style={{ fontSize: 23, marginTop: 10, fontWeight: "bold", color: "black" }}>
+                    Presupuesto
+                </Text>
+                <Text style={{ fontSize: 16, color:"black" }}>
+
+                    {
+                        new Intl.NumberFormat("en-US", { style: 'currency', currency: 'USD' }).format(movieFull.budget)
+
+                    }
+                </Text>
+
             </View>
         </>
     );
