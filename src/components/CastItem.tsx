@@ -12,8 +12,12 @@ export const CastItem = ({actor}: Props) => {
 
     return (
         <View style={styles.container}>
-            <Image source={{uri}}
-            style={{width: 50, height: 50, borderRadius:10}}/>
+            {
+                actor.profile_path &&
+                <Image source={{uri}}
+                style={{width: 50, height: 50, borderRadius:10}}/>
+            }
+            
 
             <View style={styles.actorInfo}>
                 <Text style={{fontSize:18, fontWeight:"bold", color:"black"}}>
@@ -43,8 +47,11 @@ export const styles = StyleSheet.create({
         shadowRadius: 3.84,
 
         elevation: 5,
+        marginHorizontal:15,
+        paddingRight:10,
+        height:50,
     },
     actorInfo:{
-        marginLeft:10
+        marginLeft:10,
     }
 });

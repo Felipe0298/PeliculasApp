@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { MovieFull } from '../interfaces/movieInterface';
 import { Cast } from '../interfaces/creditsInterface';
 import { styles } from '../navigation/screens/DetailScreen';
@@ -48,7 +48,15 @@ export const MovieDetails = ({ movieFull, cast }: Props) => {
                     <Text style={{ fontSize: 23, marginTop: 10, fontWeight: "bold", color: "black", marginHorizontal:20 }}>
                         Actores
                     </Text>
-                    <CastItem actor={cast[0]} />
+                   <FlatList
+                    data={cast}
+                    keyExtractor={(item) =>item.id.toString()}
+                    renderItem={({item})=> <CastItem actor={item}/>}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    style={{marginTop:10, height:70}}
+                   />
+                    {/* <CastItem actor={cast[0]} /> */}
                 </View>
             </View>
         </>
