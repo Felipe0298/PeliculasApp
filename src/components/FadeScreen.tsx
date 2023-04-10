@@ -26,7 +26,3 @@ export const FadeScreen = () => {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-
-});

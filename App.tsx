@@ -9,8 +9,8 @@ import { FadeScreen } from './src/components/FadeScreen';
 const App = () => {
   return (
       <NavigationContainer>
-        {/* <Navigation/> */}
-        <FadeScreen/>
+        <Navigation/>
+        {/* <FadeScreen/> */}
       </NavigationContainer>
   );
 }

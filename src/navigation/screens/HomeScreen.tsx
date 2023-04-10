@@ -4,8 +4,9 @@ import { useMovies } from '../../hooks/useMovies';
 import { MoviePoster } from '../../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
-import {  ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { HorizontalSlider } from '../../components/HorizontalSlider';
+import { GradientBackground } from '../../components/GradientBackground';
 
 const { width: windowWidht } = Dimensions.get("window")
 
@@ -22,26 +23,27 @@ export const HomeScreen = () => {
         )
     }
     return (
-        <ScrollView>
-            <View style={{ marginTop: top + 20 }}>
-                                                    {/*  El simbolo ! es para decirle a typescript que confie en mi */}
-                {/* Carosel Principal */}
-                <View style={{ height: 440 }}>
-                    <Carousel
-                        data={nowPlaying!}
-                        renderItem={({ item }: any) => <MoviePoster movie={item} />}
-                        sliderWidth={windowWidht}
-                        itemWidth={300} 
-                        inactiveSlideOpacity={0.9}/>
-                </View>
+        <GradientBackground>
+            <ScrollView>
+                <View style={{ marginTop: top + 20 }}>
+                    {/*  El simbolo ! es para decirle a typescript que confie en mi */}
+                    {/* Carosel Principal */}
+                    <View style={{ height: 440 }}>
+                        <Carousel
+                            data={nowPlaying!}
+                            renderItem={({ item }: any) => <MoviePoster movie={item} />}
+                            sliderWidth={windowWidht}
+                            itemWidth={300}
+                            inactiveSlideOpacity={0.9} />
+                    </View>
 
-                {/* Peliculas populares */}
+                    {/* Peliculas populares */}
 
                     <HorizontalSlider movies={popular} title='Populares' />
                     <HorizontalSlider movies={topRated} title='Mejores Calificadas' />
                     <HorizontalSlider movies={upcoming} title='Proximamente' />
-            </View>
-        </ScrollView>
-
+                </View>
+            </ScrollView>
+        </GradientBackground>
     );
 }
