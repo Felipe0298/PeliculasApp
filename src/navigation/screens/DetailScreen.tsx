@@ -1,8 +1,7 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, ActivityIndicator, Button } from 'react-native';
 import { RootStackParams } from '../Navigation';
-import { Movie } from '../../interfaces/movieInterface';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useMovieDetails } from '../../hooks/useMovieDetails';
 import { MovieDetails } from '../../components/MovieDetails';
@@ -11,7 +10,7 @@ const screenHeight = Dimensions.get("screen").height
 
 interface Props extends StackScreenProps<RootStackParams, "DetailScreen"> { }
 
-export const DetailScreen = ({ route }: Props) => {
+export const DetailScreen = ({ route, navigation }: Props) => {
 
     const movie = route.params
 
@@ -38,9 +37,7 @@ export const DetailScreen = ({ route }: Props) => {
                 ?<ActivityIndicator size={30} color="grey" style={{marginTop:20}}/>
                 :<MovieDetails movieFull={movieFull!} cast={cast}/>
             }
-
-
-
+            
         </ScrollView>
     );
 }
