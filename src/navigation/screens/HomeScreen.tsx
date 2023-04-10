@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ActivityIndicator, Dimensions, Text, View } from 'react-native';
 import { useMovies } from '../../hooks/useMovies';
 import { MoviePoster } from '../../components/MoviePoster';
@@ -9,20 +9,25 @@ import { HorizontalSlider } from '../../components/HorizontalSlider';
 import { GradientBackground } from '../../components/GradientBackground';
 import ImageColors from 'react-native-image-colors';
 import { getImageColors } from '../../helpers/getColors';
+import { GradientContext } from '../../context/GradientContext';
 
 const { width: windowWidht } = Dimensions.get("window")
 
 export const HomeScreen = () => {
 
     const { nowPlaying, isLoading, popular, topRated, upcoming } = useMovies()
-    const { top } = useSafeAreaInsets()
-   
+    const { top } = useSafeAreaInsets();
+
+   const {setMainColors} = useContext(GradientContext);
+
     const getPosterColors = async(index: number) =>{
         const movie = nowPlaying[index];
         const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
         
-        const [primary , secondary] = await getImageColors(uri)
-        console.log({primary, secondary})
+        const [primary = "green" , secondary ="orange"] = await getImageColors(uri);
+
+        setMainColors({primary, secondary})
+        
     }
 
     if (isLoading) {
