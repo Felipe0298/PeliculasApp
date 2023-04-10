@@ -1,24 +1,54 @@
 import React, { useContext } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { GradientContext } from '../context/GradientContext';
+import { Animated } from 'react-native';
+import { useEffect } from 'react';
+import { useFade } from '../hooks/useFade';
 
-interface Props{
+interface Props {
     children: JSX.Element | JSX.Element[]
 }
 
-export const GradientBackground = ({children}: Props) => {
+export const GradientBackground = ({ children }: Props) => {
 
-     const {colors} = useContext(GradientContext)
+    const { colors, prevColors, setPrevMainColors } = useContext(GradientContext)
+
+    const {opacity, fadeIn, fadeOut} = useFade();
+
+    useEffect(() => {
+      fadeIn( ()=>{
+        setPrevMainColors( colors);
+        fadeOut;
+      }) 
+    }, [colors])
+    
+
+
     return (
-     <View style={{flex:1}}>
-        <LinearGradient 
-        colors={[ colors.primary, colors.secondary, "white"]}
-        style={{...StyleSheet.absoluteFillObject}}
-        start={{x:0.1 , y: 0.1}}
-        end={{x:0.5, y:0.8}}/>
-        {children}
-     </View>
+        <View style={{ flex: 1 }}>
+            <LinearGradient
+                colors={[prevColors.primary, prevColors.secondary, "white"]}
+                style={{ ...StyleSheet.absoluteFillObject }}
+                start={{ x: 0.1, y: 0.1 }}
+                end={{ x: 0.5, y: 0.8 }} />
+
+            <Animated.View
+                style={{
+                    ...StyleSheet.absoluteFillObject,
+                    opacity
+                }}
+            >
+                <LinearGradient
+                    colors={[colors.primary, colors.secondary, "white"]}
+                    style={{ ...StyleSheet.absoluteFillObject }}
+                    start={{ x: 0.1, y: 0.1 }}
+                    end={{ x: 0.5, y: 0.8 }} />
+            </Animated.View>
+
+            {children}
+
+        </View>
     );
 }
 
